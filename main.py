@@ -119,17 +119,17 @@ def users(user_id):
 #             print("Downloaded " + str(i) + " photos")
 #
 #
-# def main_photo_download(main_url, lines, uniq_numb):
-#     a = ynd.get_public_download_link(main_url)
-#     MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
-#     out = open(MAIN_PHOTO, 'wb')
-#     b = requests.get(a)
-#     out.write(b.content)
-#     out.close()
-#     p = Image.open(MAIN_PHOTO)
-#     p = p.resize((lines * 81, lines * 81))
-#     p.save(MAIN_PHOTO)
-#
+def main_photo_download(main_url, lines, uniq_numb):
+    a = ynd.get_public_download_link(main_url)
+    MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
+    out = open(MAIN_PHOTO, 'wb')
+    b = requests.get(a)
+    out.write(b.content)
+    out.close()
+    p = Image.open(MAIN_PHOTO)
+    p = p.resize((lines * 81, lines * 81))
+    p.save(MAIN_PHOTO)
+
 
 # ------------------------------------------------------------------------------------------------------------------------------
 
