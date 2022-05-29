@@ -243,13 +243,20 @@ def collage(main_photo_url, main_photo_colors, lines, mode, uniq_numb):
 
 
 def start(user_id, data_size, lines, mode, link, uniq_numb):
-    if mode == 'VK':
-        data(json_download(friends_of_friends(users(user_id)), data_size), data_size, uniq_numb)
-    else:
-        YD_data(link, uniq_numb)
-    MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
-    result = collage(MAIN_PHOTO, main_photo_ave_colors(MAIN_PHOTO, lines, uniq_numb), lines, mode, uniq_numb)
-    return result
+    try:
+        print("Processing...")
+        if mode == 'VK':
+            data(json_download(friends_of_friends(users(user_id)), data_size), data_size, uniq_numb)
+        else:
+            YD_data(link, uniq_numb)
+        MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
+        result = collage(MAIN_PHOTO, main_photo_ave_colors(MAIN_PHOTO, lines, uniq_numb), lines, mode, uniq_numb)
+        return result
+    except Exception as e:
+        print(e)
+        vk.messages.send(user_id=event.user_id, random_id='',
+                         message='Упс! Возникла ошибка. Попробуйте заново')
+
 
 
 vk_session = vk_api.VkApi(token=token)
