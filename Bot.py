@@ -39,33 +39,41 @@ for event in longpoll.listen():
                 if event.from_user:
                     vk.messages.send(user_id=event.user_id, random_id='',
                                      message='Здравствуйте!\nПожалуйста напишите "Начать", если желаете приступить к обработке')
-            elif event.text == 'Начать' or event.text == 'начать':
-                if event.from_user:
-                    start_var = 1
-                    user_id = event.user_id
-                    USERS[user_id] = []
-                    vk.messages.send(user_id=event.user_id, random_id='',
-                                     message='Пожалуйста напишите:\n1) "ВК" для использования фотографий со своей страницы и страниц '
-                                             'своих друзей Вконтакте. ВНИМАНИЕ! для работы Вам будет необходимо на время выполнения обработки сделать профиль НЕ приватным\n2) "Диск" для использования фотографий с вашего яндекс диска')
-            elif event.text == 'ВК' or event.text == 'вк' or event.text == 'Вк':
-                if event.from_user:
-                    user_id = event.user_id
-                    USERS[user_id].append("VK")
-                    vk.messages.send(user_id=event.user_id, random_id='',
-                                     message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
-                    vk.messages.send(user_id=event.user_id, random_id='',
-                                     message='Чтобы начать заново, напишите "Отмена"')
+                elif event.text == 'Начать' or event.text == 'начать':
+                    if event.from_user:
+                        user_id = event.user_id
+                        start_var = 1
+                        USERS[user_id] = []
+                        USERS[user_id].append("Disk")
+                        vk.messages.send(user_id=event.user_id, random_id='',
+                                         message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
+                        vk.messages.send(user_id=event.user_id, random_id='',
+                                         message='Чтобы начать заново, напишите "Отмена"')
+            # elif event.text == 'Начать' or event.text == 'начать':
+            #     if event.from_user:
+            #         start_var = 1
+            #         user_id = event.user_id
+            #         USERS[user_id] = []
+            #         vk.messages.send(user_id=event.user_id, random_id='',
+            #                          message='Пожалуйста напишите:\n1) "ВК" для использования фотографий со своей страницы и страниц '
+            #                                  'своих друзей Вконтакте. ВНИМАНИЕ! для работы Вам будет необходимо на время выполнения обработки сделать профиль НЕ приватным\n2) "Диск" для использования фотографий с вашего яндекс диска')
+            # elif event.text == 'ВК' or event.text == 'вк' or event.text == 'Вк':
+            #     if event.from_user:
+            #         user_id = event.user_id
+            #         USERS[user_id].append("VK")
+            #         vk.messages.send(user_id=event.user_id, random_id='',
+            #                          message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
+            #         vk.messages.send(user_id=event.user_id, random_id='',
+            #                          message='Чтобы начать заново, напишите "Отмена"')
 
-
-            elif event.text == 'Диск':
-                if event.from_user:
-                    user_id = event.user_id
-                    USERS[user_id].append("Disk")
-                    vk.messages.send(user_id=event.user_id, random_id='',
-                                     message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
-                    vk.messages.send(user_id=event.user_id, random_id='',
-                                     message='Чтобы начать заново, напишите "Отмена"')
-
+            # elif event.text == 'Диск':
+            #     if event.from_user:
+            #         user_id = event.user_id
+            #         USERS[user_id].append("Disk")
+            #         vk.messages.send(user_id=event.user_id, random_id='',
+            #                          message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
+            #         vk.messages.send(user_id=event.user_id, random_id='',
+            #                          message='Чтобы начать заново, напишите "Отмена"')
 
             elif event.text == 'Подтвердить' or event.text == 'подтвердить':
                 if event.from_user:

@@ -49,87 +49,87 @@ def users(user_id):
 
 
 # Возвращает список длины 100 из друзей друзей
-def friends_of_friends(friends_list):
-    friends_of_friends_set = set()
-    while True:
-        for friend in friends_list:
-            try:
-                user_list_tmp = vk.friends.get(user_id=friend, v='5.89')['items']
-            except Exception as e:
-                print(e)
-            for user in user_list_tmp:
-                friends_of_friends_set.add(str(user))
-                if len(friends_of_friends_set) > 1000:
-                    friends_of_friends_list = list(friends_of_friends_set)
-                    return (friends_of_friends_list)
-
-
-# Возвращает список url фотографий со страниц друзей и друзей друзей
-def json_download(user_list_, data_size):
-    data_tmp = []
-    photos_url_set = set()
-
-    user_list = user_list_
-    while len(user_list) < data_size:
-        for friend in friends_of_friends(user_list):
-            user_list.append(friend)
-    user_list = list(set(user_list))
-    for user in user_list:
-        for i in range(10):
-            try:
-                data_tmp = vk.photos.getAll(owner_id=user, v='5.89', count='200')['items']
-            except Exception as e:
-                print(e)
-                break
-        for el in data_tmp:
-            try:
-                for el1 in el['sizes']:
-                    if el1['height'] == 130:
-                        photos_url_set.add(el1['url'])
-            except Exception as e:
-                print(e)
-                pass
-        print("Downloaded " + str(len(photos_url_set)) + " url")
-        if len(photos_url_set) > data_size:
-            break
-    print(list(photos_url_set))
-    return list(photos_url_set)
-
-
-# Скачивает фотографии по списку url
-def data(photos_url, data_size, uniq_numb):
-    i = 0
-    os.mkdir('data' + str(uniq_numb))
-    sample = 'data' + str(uniq_numb) + '/SchoolProject2022Photo' + str(
-        uniq_numb)
-    while len(fragments) < data_size:
-        for url in photos_url:
-            try:
-                i += 1
-
-                name = sample + str(i) + '.jpg'
-                out = open(name, 'wb')
-                photo = requests.get(url)
-                out.write(photo.content)
-                out.close()
-                fragment = frag(sample + str(i) + '.jpg', [])
-                fragments.append(fragment)
-            except Exception as e:
-                print(e, 'data')
-            print("Downloaded " + str(i) + " photos")
-
-
-def main_photo_download(main_url, lines, uniq_numb):
-    a = ynd.get_public_download_link(main_url)
-    MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
-    out = open(MAIN_PHOTO, 'wb')
-    b = requests.get(a)
-    out.write(b.content)
-    out.close()
-    p = Image.open(MAIN_PHOTO)
-    p = p.resize((lines * 81, lines * 81))
-    p.save(MAIN_PHOTO)
-
+# def friends_of_friends(friends_list):
+#     friends_of_friends_set = set()
+#     while True:
+#         for friend in friends_list:
+#             try:
+#                 user_list_tmp = vk.friends.get(user_id=friend, v='5.89')['items']
+#             except Exception as e:
+#                 print(e)
+#             for user in user_list_tmp:
+#                 friends_of_friends_set.add(str(user))
+#                 if len(friends_of_friends_set) > 1000:
+#                     friends_of_friends_list = list(friends_of_friends_set)
+#                     return (friends_of_friends_list)
+#
+#
+# # Возвращает список url фотографий со страниц друзей и друзей друзей
+# def json_download(user_list_, data_size):
+#     data_tmp = []
+#     photos_url_set = set()
+#
+#     user_list = user_list_
+#     while len(user_list) < data_size:
+#         for friend in friends_of_friends(user_list):
+#             user_list.append(friend)
+#     user_list = list(set(user_list))
+#     for user in user_list:
+#         for i in range(10):
+#             try:
+#                 data_tmp = vk.photos.getAll(owner_id=user, v='5.89', count='200')['items']
+#             except Exception as e:
+#                 print(e)
+#                 break
+#         for el in data_tmp:
+#             try:
+#                 for el1 in el['sizes']:
+#                     if el1['height'] == 130:
+#                         photos_url_set.add(el1['url'])
+#             except Exception as e:
+#                 print(e)
+#                 pass
+#         print("Downloaded " + str(len(photos_url_set)) + " url")
+#         if len(photos_url_set) > data_size:
+#             break
+#     print(list(photos_url_set))
+#     return list(photos_url_set)
+#
+#
+# # Скачивает фотографии по списку url
+# def data(photos_url, data_size, uniq_numb):
+#     i = 0
+#     os.mkdir('data' + str(uniq_numb))
+#     sample = 'data' + str(uniq_numb) + '/SchoolProject2022Photo' + str(
+#         uniq_numb)
+#     while len(fragments) < data_size:
+#         for url in photos_url:
+#             try:
+#                 i += 1
+#
+#                 name = sample + str(i) + '.jpg'
+#                 out = open(name, 'wb')
+#                 photo = requests.get(url)
+#                 out.write(photo.content)
+#                 out.close()
+#                 fragment = frag(sample + str(i) + '.jpg', [])
+#                 fragments.append(fragment)
+#             except Exception as e:
+#                 print(e, 'data')
+#             print("Downloaded " + str(i) + " photos")
+#
+#
+# def main_photo_download(main_url, lines, uniq_numb):
+#     a = ynd.get_public_download_link(main_url)
+#     MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
+#     out = open(MAIN_PHOTO, 'wb')
+#     b = requests.get(a)
+#     out.write(b.content)
+#     out.close()
+#     p = Image.open(MAIN_PHOTO)
+#     p = p.resize((lines * 81, lines * 81))
+#     p.save(MAIN_PHOTO)
+#
 
 # ------------------------------------------------------------------------------------------------------------------------------
 
