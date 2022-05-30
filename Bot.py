@@ -159,5 +159,4 @@ for event in longpoll.listen():
     except Exception as e:
         vk.messages.send(user_id=event.user_id, random_id='',
                          message="Упс, возникла неведомая ошибка, попробуйте заново!")
-        vk.messages.send(user_id=event.user_id, random_id='',
-                         message="Ошибка: " + str(e))
+        print(str(e))
