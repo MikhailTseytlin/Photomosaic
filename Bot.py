@@ -17,16 +17,20 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 
 
 def main_p(user_id, user_size, user_main, user_lines, user_mode, user_link):
-    uniq_numb = time.time()
-    main_photo_download(user_main, user_lines, uniq_numb)
-    result = start(user_id, user_size, user_lines, user_mode, user_link, uniq_numb)
-    vk.messages.send(user_id=event.user_id, random_id='',
-                     message='Ваше фото готово. Ссылка:')
-    vk.messages.send(user_id=event.user_id, random_id='',
-                     message=result)
-    file = open('project_sub_file', 'w')
-    file.write('0')
-    file.close()
+    try:
+        uniq_numb = time.time()
+        main_photo_download(user_main, user_lines, uniq_numb)
+        result = start(user_id, user_size, user_lines, user_mode, user_link, uniq_numb)
+        vk.messages.send(user_id=event.user_id, random_id='',
+                         message='Ваше фото готово. Ссылка:')
+        vk.messages.send(user_id=event.user_id, random_id='',
+                         message=result)
+        file = open('project_sub_file', 'w')
+        file.write('0')
+        file.close()
+    except Exception as e:
+        vk.messages.send(user_id=event.user_id, random_id='',
+                     message="Упс, возникла неведомая ошибка, попробуйте заново!")
 
 
 user_number = 0

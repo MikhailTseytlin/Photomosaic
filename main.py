@@ -254,8 +254,6 @@ def start(user_id, data_size, lines, mode, link, uniq_numb):
         return result
     except Exception as e:
         print(e)
-        vk.messages.send(user_id=user_id, random_id='',
-                         message='Упс! Возникла ошибка. Попробуйте заново')
 
 
 
