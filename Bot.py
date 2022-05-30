@@ -42,14 +42,14 @@ for event in longpoll.listen():
                     user_id = event.user_id
                     vk.messages.send(user_id=event.user_id, random_id='',
                                      message='Здравствуйте!\nПожалуйста напишите "Начать", если желаете приступить к обработке')
-                elif event.text == 'Начать' or event.text == 'начать':
-                    if event.from_user:
-                        user_id = event.user_id
-                        start_var = 1
-                        USERS[user_id] = []
-                        USERS[user_id].append("Disk")
-                        vk.messages.send(user_id=event.user_id, random_id='',
-                                         message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
+            elif event.text == 'Начать' or event.text == 'начать':
+                if event.from_user:
+                    user_id = event.user_id
+                    start_var = 1
+                    USERS[user_id] = []
+                    USERS[user_id].append("Disk")
+                    vk.messages.send(user_id=event.user_id, random_id='',
+                                     message='Итоговое фото будет иметь отношение сторон 1:1. Пожалуйста укажите размер одной из сторон в количестве фрагментов (10-150). Рекомендовано: 50-100 фрагментов. Чем больше это значение, тем полученное изображение получится более четким, но обработка займет больше времени, и будет необходимо больше фотографий.')
 
             # elif event.text == 'Начать' or event.text == 'начать':
             #     if event.from_user:
@@ -160,6 +160,4 @@ for event in longpoll.listen():
     except Exception as e:
         vk.messages.send(user_id=event.user_id, random_id='',
                          message="Упс, возникла неведомая ошибка, попробуйте заново!")
-        print(sys._getframe().f_code.co_name + " @ Caught exception").center(50) + '\n' + (
-                    str(e).decode('utf8') + '. line: ' + str(sys.exc_info()[2].tb_lineno)).center(50)
         print(str(e))
