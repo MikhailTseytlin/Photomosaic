@@ -121,7 +121,7 @@ def users(user_id):
 #
 def main_photo_download(main_url, lines, uniq_numb):
     a = ynd.get_public_download_link(main_url)
-    MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
+    MAIN_PHOTO = "/app/Main_Photo" + str(uniq_numb) + ".jpg"
     out = open(MAIN_PHOTO, 'wb')
     b = requests.get(a)
     out.write(b.content)
@@ -136,24 +136,24 @@ def main_photo_download(main_url, lines, uniq_numb):
 # Скачивание фотографий из диска
 def YD_data(link, uniq_numb):
     a = ynd.get_public_download_link(link)
-    direct = 'data' + str(uniq_numb) + '.zip'
+    direct = '/app/data' + str(uniq_numb) + '.zip'
     out = open(direct, 'wb')
     b = requests.get(a)
     out.write(b.content)
     out.close()
     with zipfile.ZipFile(direct, 'r') as zip_file:
         zip_file.extractall('')
-    os.rename("Photo_Mosaic", "data" + str(uniq_numb))
-    d = os.listdir("data" + str(uniq_numb))
+    os.rename("/app/Photo_Mosaic", "data" + str(uniq_numb))
+    d = os.listdir("/app/data" + str(uniq_numb))
     i = 1
     for photo in d:
         try:
             i += 1
-            os.rename('data' + str(uniq_numb) + '/' + photo,
+            os.rename('/app/data' + str(uniq_numb) + '/' + photo,
                       'data/SchoolProject2022Photo' + str(
                           uniq_numb) + str(i) + '.jpg')
             fragment = frag(
-                'data/SchoolProject2022Photo' + str(uniq_numb) + str(
+                '/app/data/SchoolProject2022Photo' + str(uniq_numb) + str(
                     i) + '.jpg', [])
             fragments.append(fragment)
         except Exception as e:
@@ -162,9 +162,9 @@ def YD_data(link, uniq_numb):
 
 # Записывает в файл средние цвета фрагментов исходной фотографии
 def main_photo_ave_colors(main_photo, lines, uniq_numb):
-    s = 'main_photo' + str(uniq_numb) + '20.jpg'
+    s = '/app/main_photo' + str(uniq_numb) + '20.jpg'
     os.system(
-        'cp ' + main_photo + ' main_photo' + str(uniq_numb) + '20.jpg')
+        'cp ' + main_photo + ' /app/main_photo' + str(uniq_numb) + '20.jpg')
 
     photo = Image.open(s)
     ave_color_list = []
@@ -227,7 +227,7 @@ def collage(main_photo_url, main_photo_colors, lines, mode, uniq_numb):
             except Exception as e:
                 print(e)
 
-    RESULT = "Result" + str(uniq_numb) + ".jpg"
+    RESULT = "/app/Result" + str(uniq_numb) + ".jpg"
     main_photo.save(RESULT)
     u = "/Фотомозаика/main" + str(uniq_numb) + '.jpg'
     ynd.upload(RESULT, u)
@@ -249,7 +249,7 @@ def start(user_id, data_size, lines, mode, link, uniq_numb):
             data(json_download(friends_of_friends(users(user_id)), data_size), data_size, uniq_numb)
         else:
             YD_data(link, uniq_numb)
-        MAIN_PHOTO = "Main_Photo" + str(uniq_numb) + ".jpg"
+        MAIN_PHOTO = "/app/Main_Photo" + str(uniq_numb) + ".jpg"
         result = collage(MAIN_PHOTO, main_photo_ave_colors(MAIN_PHOTO, lines, uniq_numb), lines, mode, uniq_numb)
         return result
     except Exception as e:
