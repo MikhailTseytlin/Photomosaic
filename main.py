@@ -143,14 +143,14 @@ def YD_data(link, uniq_numb):
     out.close()
     with zipfile.ZipFile(direct, 'r') as zip_file:
         zip_file.extractall('')
-    os.rename("/app/Photo_Mosaic", "data" + str(uniq_numb))
+    os.rename("/app/Photo_Mosaic", "/app/data" + str(uniq_numb))
     d = os.listdir("/app/data" + str(uniq_numb))
     i = 1
     for photo in d:
         try:
             i += 1
             os.rename('/app/data' + str(uniq_numb) + '/' + photo,
-                      'data/SchoolProject2022Photo' + str(
+                      '/app/data/SchoolProject2022Photo' + str(
                           uniq_numb) + str(i) + '.jpg')
             fragment = frag(
                 '/app/data/SchoolProject2022Photo' + str(uniq_numb) + str(
