@@ -3,6 +3,7 @@ from main import start
 import vk_api
 import threading
 import time
+import sys
 from config import key
 
 start_var = 0
@@ -159,4 +160,6 @@ for event in longpoll.listen():
     except Exception as e:
         vk.messages.send(user_id=event.user_id, random_id='',
                          message="Упс, возникла неведомая ошибка, попробуйте заново!")
+        print(sys._getframe().f_code.co_name + " @ Caught exception").center(50) + '\n' + (
+                    str(e).decode('utf8') + '. line: ' + str(sys.exc_info()[2].tb_lineno)).center(50)
         print(str(e))
