@@ -31,6 +31,7 @@ def main_p(user_id, user_size, user_main, user_lines, user_mode, user_link):
     except Exception as e:
         vk.messages.send(user_id=event.user_id, random_id='',
                      message="Упс, возникла неведомая ошибка, попробуйте заново!")
+        print(e)
 
 
 user_number = 0
