@@ -37,6 +37,7 @@ for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me and event.text:
             if event.text == 'Привет' or event.text == 'привет':
                 if event.from_user:
+                    user_id = event.user_id
                     vk.messages.send(user_id=event.user_id, random_id='',
                                      message='Здравствуйте!\nПожалуйста напишите "Начать", если желаете приступить к обработке')
                 elif event.text == 'Начать' or event.text == 'начать':
